@@ -32,12 +32,13 @@ namespace Registar.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Details(int id){
+    public ActionResult Details(int id)
+    {
       var thisStudent = _db.Students
           .Include(student => student.CourseStudents)
           .ThenInclude(join => join.Course)
-          .FirstOrDefault(student => student.StudentId == id);
-      return View(thisStudent);
+          .FirstOrDefault(student => student.StudentId == id);   
+        return View(thisStudent);
     }
 
     public ActionResult AddCourse(int id)
