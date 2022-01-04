@@ -53,9 +53,9 @@ namespace Registar.Controllers
       if (CourseId != 0)
       {
         _db.CourseStudents.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
-        }
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)

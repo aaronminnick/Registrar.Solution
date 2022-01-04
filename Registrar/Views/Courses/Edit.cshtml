@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Registrar.Models.Course
+
+<h1>Strudel University</h1>
+<h2>Edit Course: @Model.Name</h2>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.CourseId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+
+  @Html.LabelFor(model => model.Number)
+  @Html.EditorFor(model => model.Number)
+
+  <input type = "submit" value = "Save" />
+}
+
+<p>@Html.ActionLink("Back to courses", "Index")</p>
+<p>@Html.ActionLink("Home", "Index")</p>
