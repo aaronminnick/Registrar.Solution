@@ -55,7 +55,7 @@ namespace Registar.Controllers
         _db.CourseStudents.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new {id = student.StudentId});
     }
 
     public ActionResult Delete(int id)
@@ -74,12 +74,26 @@ namespace Registar.Controllers
     }
 
     [HttpPost]
-    public ActionResult DeleteCourse(int joinId)
+    public ActionResult DeleteCourse(int joinId, int studentId)
     {
       var joinEntry = _db.CourseStudents.FirstOrDefault(joinEntry => joinEntry.CourseStudentId == joinId);
       _db.CourseStudents.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new {id = studentId});
+    }
+
+    public ActionResult Edit(int id)
+    {
+      Student thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      return View(thisStudent);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Student student)
+    {
+      _db.Entry(student).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new {id = student.StudentId});
     }
   }
 }

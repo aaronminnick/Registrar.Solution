@@ -25,6 +25,7 @@ else
       <li>@join.Course.Name - @join.Course.Number</li>
       @using (Html.BeginForm("DeleteCourse", "Students"))
       {
+        @Html.Hidden("studentId", @Model.StudentId)
         @Html.Hidden("joinId", @join.CourseStudentId)
         <input type="submit" value="Delete" />
       }
@@ -33,5 +34,6 @@ else
 }
 
 <p>@Html.ActionLink("View all Students", "Index")</p>
+<p>@Html.ActionLink("Edit Student", "Edit", new { id = Model.StudentId })</p>
 <p>@Html.ActionLink("Delete Student", "Delete", new { id = Model.StudentId })</p>
 <p>@Html.ActionLink("Enroll Student in new Course", "AddCourse", new { id = Model.StudentId })</p>
