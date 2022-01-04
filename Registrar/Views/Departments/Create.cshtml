@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Registrar.Models.Department;
+
+<h2>Create a new Department</h2>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name, "Department Name:")
+  @Html.TextBoxFor(model => model.Name)
+  @Html.LabelFor(model => model.DepartmentCode, "Department Code (3 or 4 uppercase letters):")
+  @Html.TextBoxFor(model => model.DepartmentCode, "{A-Z}{3,4}") 
+  <!-- FIX THIS REGEX-->
+  <input type="submit" value="Create Record" />
+}
+

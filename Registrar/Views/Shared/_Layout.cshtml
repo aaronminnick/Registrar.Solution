@@ -9,6 +9,12 @@
 <body>
   <div class="container">
     @RenderBody()
+    <div class="link-bar">
+      @Html.ActionLink("Home", "Index", "Home")
+      @Html.ActionLink("See all Students", "Index", "Students")
+      @Html.ActionLink("See all Courses", "Index", "Courses")
+      @Html.ActionLink("See all Departments", "Index", "Departments")
+    </div>
   </div>
 </body>
 </html>

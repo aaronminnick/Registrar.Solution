@@ -34,7 +34,7 @@ namespace Registar.Controllers
 
     public ActionResult Details(int id){
       var thisStudent = _db.Students
-          .Include(student => student.JoinEntities)
+          .Include(student => student.CourseStudents)
           .ThenInclude(join => join.Course)
           .FirstOrDefault(student => student.StudentId == id);
       return View(thisStudent);

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Registrar.Models;
 
 namespace Registrar.Migrations
 {
     [DbContext(typeof(RegistrarContext))]
-    partial class RegistrarContextModelSnapshot : ModelSnapshot
+    [Migration("20220104185128_Migration3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +71,7 @@ namespace Registrar.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Department");
                 });
 
             modelBuilder.Entity("Registrar.Models.DepartmentCourse", b =>
@@ -90,7 +92,7 @@ namespace Registrar.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentCourses");
+                    b.ToTable("DepartmentCourse");
                 });
 
             modelBuilder.Entity("Registrar.Models.DepartmentStudent", b =>
@@ -111,7 +113,7 @@ namespace Registrar.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("DepartmentStudents");
+                    b.ToTable("DepartmentStudent");
                 });
 
             modelBuilder.Entity("Registrar.Models.Student", b =>

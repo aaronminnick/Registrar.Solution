@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Registrar.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,22 +24,30 @@ namespace Registrar.Controllers
 
     public ActionResult Create()
     {
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Course course)
+    public ActionResult Create(Course course, int DepartmentId)
     {
       _db.Courses.Add(course);
       _db.SaveChanges();
+      if (DepartmentId != 0)
+      {
+        _db.DepartmentCourses.Add(new DepartmentCourse() {DepartmentId = DepartmentId, CourseId = course.CourseId});
+        _db.SaveChanges();
+      }
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
       var thisCourse = _db.Courses
-        .Include(course => course.JoinEntities)
-        .ThenInclude(join => join.Student)
+        .Include(course => course.CourseStudents)
+          .ThenInclude(join => join.Student)
+        .Include(course => course.DepartmentCourses)
+          .ThenInclude(join => join.Department)
         .FirstOrDefault(course => course.CourseId == id);
       return View(thisCourse);
     }
