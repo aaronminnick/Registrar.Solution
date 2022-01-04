@@ -14,6 +14,6 @@ namespace Registrar.Models
     public string Name { get; set; }
     public int Number { get; set; }
     public virtual ICollection<CourseStudent> CourseStudents { get;} //leaving out set for now to see if it works
-    public virtual ICollection<DepartmentCourse> DepartmentCourses {get;}
+    public virtual ICollection<DepartmentCourse> DepartmentCourses { get;}
   }
 }

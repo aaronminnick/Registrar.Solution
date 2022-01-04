@@ -1,0 +1,42 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Registrar.Models.Department;
+
+<h1>Strudel University</h1>
+<h2>Department Details</h2>
+<h3>Department: @Html.DisplayFor(model => model.Name)</h3>
+<h3>Department Code: @Html.DisplayFor(model => model.DepartmentCode)</h3>
+
+@if(@Model.DepartmentCourses.Count == 0)
+{
+  <p>No courses have been associated with this department.</p>
+}
+else
+{
+  <h4>Courses:</h4>
+  <ul>
+    @foreach(var join in Model.DepartmentCourses)
+    {
+      <li>@join.Course.Name - @join.Course.Number</li>
+    }
+  </ul>
+}
+
+@if(@Model.DepartmentStudents.Count == 0)
+{
+  <p>No students have enrolled in courses in this department.</p>
+}
+else
+{
+  <h4>Students:</h4>
+  <ul>
+    @foreach(var join in Model.DepartmentStudents)
+    {
+      <li>@join.Student.FirstName @join.Student.LastName</li>
+    }
+  </ul>
+}
+<p>@Html.ActionLink("Delete department", "Delete", new { id = Model.DepartmentId })</p>
+<p>@Html.ActionLink("Edit this department", "Edit", new { id = Model.DepartmentId })</p>

@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Registrar.Models.Department;
+
+<h2>Are you sure you want to delete @Model.Name?</h2>
+
+@using(Html.BeginForm())
+{
+  <input type="submit" value="Burn it!" />
+}
+
+@Html.ActionLink("Nah, I'll keep this department... for now", "Details", new { id = Model.DepartmentId })

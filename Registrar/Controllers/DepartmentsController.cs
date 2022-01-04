@@ -32,5 +32,45 @@ namespace Registrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult Details(int id)
+    {
+      var thisDepartment = _db.Departments
+        .Include(department => department.DepartmentCourses)
+          .ThenInclude(join => join.Course)
+        .Include(department => department.DepartmentStudents)
+          .ThenInclude(join => join.Student)
+        .FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    public ActionResult Edit (int id)
+    {
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Department department)
+    {
+      _db.Entry(department).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = department.DepartmentId });
+    }
+
+    public ActionResult Delete(int id)
+    {
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      _db.Departments.Remove(thisDepartment);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

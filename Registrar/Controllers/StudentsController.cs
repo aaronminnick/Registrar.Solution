@@ -58,6 +58,24 @@ namespace Registar.Controllers
       return RedirectToAction("Details", new {id = student.StudentId});
     }
 
+    public ActionResult AddDepartment(int id)
+    {
+      var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
+      return View(thisStudent);
+    }
+
+    [HttpPost]
+    public ActionResult AddDepartment(Student student, int DepartmentId)
+    {
+      if (DepartmentId != 0)
+      {
+        _db.DepartmentStudents.Add(new DepartmentStudent() { DepartmentId = DepartmentId, StudentId = student.StudentId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = student.StudentId});
+    }
+
     public ActionResult Delete(int id)
     {
       var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
@@ -82,6 +100,14 @@ namespace Registar.Controllers
       return RedirectToAction("Details", new {id = studentId});
     }
 
+    [HttpPost]
+    public ActionResult DeleteDepartment(int joinId, int studentId)
+    {
+      var joinEntry = _db.DepartmentStudents.FirstOrDefault(joinEntry => joinEntry.DepartmentStudentId == joinId);
+      _db.DepartmentStudents.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = studentId });
+    }
     public ActionResult Edit(int id)
     {
       Student thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);

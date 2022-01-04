@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Choose Student's Major</h2>
+
+@model Registrar.Models.Student;
+
+@using(Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.StudentId)
+  @Html.Label("Select a Major:")
+  @Html.DropDownList("DepartmentId")
+  <input type="submit" value="Add Major" />
+}

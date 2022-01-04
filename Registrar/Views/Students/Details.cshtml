@@ -32,6 +32,30 @@ else
     }
   </ul>
 }
+
+@if(@Model.DepartmentStudents.Count == 0)
+{
+  <p>This student currently has not declared their major.</p>
+}
+else
+{
+  <h3>Major:</h3>
+  <ul>
+    @foreach (var join in Model.DepartmentStudents)
+    {
+      <li>@join.Department.Name</li>
+      @using (Html.BeginForm("DeleteDepartment", "Students"))
+      {
+        @Html.Hidden("studentId", @Model.StudentId)
+        @Html.Hidden("joinId", @join.DepartmentStudentId)
+        <input type="submit" value="Delete" />
+      }
+    }
+  </ul>
+}
+
+
 <p>@Html.ActionLink("Edit Student", "Edit", new { id = Model.StudentId })</p>
 <p>@Html.ActionLink("Delete Student", "Delete", new { id = Model.StudentId })</p>
 <p>@Html.ActionLink("Enroll Student in new Course", "AddCourse", new { id = Model.StudentId })</p>
+<p>@Html.ActionLink("Choose Student's Major", "AddDepartment", new { id = Model.StudentId })</p>
