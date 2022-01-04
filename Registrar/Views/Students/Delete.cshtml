@@ -1,0 +1,11 @@
+@{
+  Layout = "_Layout";
+}
+
+Are you sure you want to delete @Model.FirstName @Model.LastName's records?
+
+@using(Html.BeginForm())
+{
+  <input type="submit" value="Yes, they are toast.">
+}
+@Html.ActionLink("No, spare them.", "Details", new {id = Model.StudentId})

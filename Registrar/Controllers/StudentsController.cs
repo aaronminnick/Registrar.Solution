@@ -10,7 +10,7 @@ namespace Registar.Controllers
   {
     private readonly RegistrarContext _db;
 
-    public Studentscontroller(RegistrarContext db)
+    public StudentsController(RegistrarContext db)
     {
       _db = db;
     }
@@ -60,7 +60,7 @@ namespace Registar.Controllers
 
     public ActionResult Delete(int id)
     {
-      vAddCourse thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
       return View(thisStudent);
     }
 
@@ -77,7 +77,7 @@ namespace Registar.Controllers
     public ActionResult DeleteCourse(int joinId)
     {
       var joinEntry = _db.CourseStudents.FirstOrDefault(joinEntry => joinEntry.CourseStudentId == joinId);
-      __db.CourseStudent.Remove(joinEntry);
+      _db.CourseStudents.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
